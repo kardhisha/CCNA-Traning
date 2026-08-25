@@ -1,0 +1,130 @@
+number system
+physical connection
+ip mac
+ip parameter
+lan network
+osi layer
+network devices
+router configuration
+route table
+
+
+Direct Connected Route
+
+Interface config
+
+
+R1
+
+interface fastEthernet0/0
+ip address 192.50.20.1 255.255.255.0 
+no shutdown
+exit
+
+interface fastEthernet1/0
+ip address 12.0.0.1 255.0.0.0
+no shutdown
+exit
+
+ip route 223.0.50.0 255.255.255.0 12.0.0.2
+
+
+
+R2
+
+interface fastEthernet0/0
+ip address 12.0.0.2 255.0.0.0
+no shutdown
+exit
+
+interface fastEthernet1/0
+ip address 26.0.0.1 255.0.0.0
+no shutdown
+exit
+
+interface fastEthernet9/0
+ip address 23.0.0.1 255.0.0.0
+no shutdown
+exit
+
+interface fastEthernet8/0
+ip address 24.0.0.1 255.0.0.0
+no shutdown
+exit
+
+
+ip route 223.0.50.0 255.255.255.0 26.0.0.2
+ip route 192.50.20.0 255.255.255.0 12.0.0.1
+ip route 172.36.0.0 255.255.0.0 23.0.0.2
+
+
+R3
+
+interface fastEthernet0/0
+ip address 23.0.0.2 255.0.0.0
+no shutdown
+exit
+
+interface fastEthernet1/0
+ip address 32.0.0.1 255.0.0.0
+no shutdown
+exit
+
+
+ip route 172.36.0.0 255.255.0.0 32.0.0.2
+ip route 192.50.20.0 255.255.255.0 23.0.0.1
+ip route 172.36.0.0 255.255.0.0 23.0.0.1
+
+
+R4
+
+interface fastEthernet0/0
+ip address 24.0.0.2 255.0.0.0
+no shutdown
+exit
+
+interface fastEthernet1/0
+ip address 45.0.0.1 255.0.0.0
+no shutdown
+exit
+
+ip route 172.36.0.0 255.255.0.0 45.0.0.2
+ip route 192.50.20.0 255.255.255.0 24.0.0.1
+
+
+
+R5
+
+interface fastEthernet1/0
+ip address 32.0.0.2 255.0.0.0
+no shutdown
+exit
+
+interface fastEthernet0/0
+ip address 45.0.0.2 255.0.0.0
+no shutdown
+exit
+
+interface fastEthernet9/0
+ip address 172.36.0.1 255.255.0.0
+no shutdown
+exit
+
+ip route 192.50.20.0 255.255.255.0 32.0.0.1
+
+
+
+R6
+
+interface fastEthernet0/0
+ip address 26.0.0.2 255.0.0.0
+no shutdown
+exit
+
+interface fastEthernet1/0
+ip address 223.0.50.0 255.255.255.0
+no shutdown
+exit
+
+ip route 192.50.20.0 255.255.255.0 26.0.0.1
+
