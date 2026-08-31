@@ -1,0 +1,219 @@
+Ethernet1/0
+Ethernet1/1
+Ethernet1/2
+Ethernet1/3
+
+
+R1
+****************************
+interface Ethernet1/0
+ip address 10.0.0.1 255.255.255.0 
+no shutdown
+exit
+
+interface Ethernet1/1
+ip address 10.0.1.1 255.255.255.0
+no shutdown
+exit
+
+
+Static:
+
+ip route 10.0.2.0 255.255.255.0 10.0.1.2
+ip route 10.0.3.0 255.255.255.0 10.0.1.2
+ip route 10.0.4.0 255.255.255.0 10.0.1.2
+ip route 10.0.5.0 255.255.255.0 10.0.1.2
+ip route 10.0.6.0 255.255.255.0 10.0.1.2
+
+ip route 182.46.0.0 255.255.255.0 10.0.1.2
+ip route 135.82.0.0 255.255.255.0 10.0.1.2
+ip route 153.69.0.0 255.255.255.0 10.0.1.2
+ip route 200.10.156.0 255.255.255.0 10.0.1.2
+
+
+R2
+**********************************
+interface Ethernet1/0
+ip address 200.10.156.1 255.255.255.0
+no shutdown
+exit
+
+interface Ethernet1/1
+ip address 10.0.1.2 255.255.255.0
+no shutdown
+exit
+
+interface Ethernet1/2
+ip address 10.0.2.1 255.255.255.0
+no shutdown
+exit
+
+interface Ethernet1/3
+ip address 10.0.6.1 255.255.255.0
+no shutdown
+exit
+
+
+Static:
+! R1 Server LAN
+ip route 10.0.0.0 255.255.255.0 10.0.1.1
+
+! R4 side
+ip route 10.0.3.0 255.255.255.0 10.0.2.2
+ip route 182.46.0.0 255.255.255.0 10.0.2.2
+
+! R5/R6 side
+ip route 10.0.4.0 255.255.255.0 10.0.2.2
+ip route 10.0.5.0 255.255.255.0 10.0.2.2
+ip route 135.82.0.0 255.255.255.0 10.0.2.2
+
+! R7 Server LAN
+ip route 153.69.0.0 255.255.255.0 10.0.6.2
+
+R3
+**********************************
+interface Ethernet1/0
+ip address 10.0.2.2 255.255.255.0
+no shutdown
+exit
+
+interface Ethernet1/1
+ip address 10.0.4.1 255.255.255.0
+no shutdown
+exit
+
+interface Ethernet1/2
+ip address 10.0.3.1 255.255.255.0
+no shutdown
+exit
+
+
+Static:
+! Toward R1/R2
+ip route 10.0.0.0 255.255.255.0 10.0.2.1
+ip route 10.0.1.0 255.255.255.0 10.0.2.1
+ip route 10.0.6.0 255.255.255.0 10.0.2.1
+
+ip route 200.10.156.0 255.255.255.0 10.0.2.1
+ip route 153.69.0.0 255.255.255.0 10.0.2.1
+
+! Toward R4
+ip route 182.46.0.0 255.255.255.0 10.0.3.2
+
+! Toward R5/R6
+ip route 10.0.5.0 255.255.255.0 10.0.4.2
+ip route 135.82.0.0 255.255.255.0 10.0.4.2
+
+
+
+R4
+**********************************
+interface Ethernet1/0
+ip address 10.0.3.2 255.255.255.0
+no shutdown
+exit
+
+interface Ethernet1/1
+ip address 182.46.0.1 255.255.255.0
+no shutdown
+exit
+
+
+Static:
+ip route 10.0.0.0 255.255.255.0 10.0.3.1
+ip route 10.0.1.0 255.255.255.0 10.0.3.1
+ip route 10.0.2.0 255.255.255.0 10.0.3.1
+ip route 10.0.4.0 255.255.255.0 10.0.3.1
+ip route 10.0.5.0 255.255.255.0 10.0.3.1
+ip route 10.0.6.0 255.255.255.0 10.0.3.1
+
+ip route 135.82.0.0 255.255.255.0 10.0.3.1
+ip route 153.69.0.0 255.255.255.0 10.0.3.1
+ip route 200.10.156.0 255.255.255.0 10.0.3.1
+
+
+R5
+**********************************
+interface Ethernet1/0
+ip address 10.0.4.2 255.255.255.0
+no shutdown
+exit
+
+interface Ethernet1/1
+ip address 10.0.5.1 255.255.255.0
+no shutdown
+exit
+
+
+Static:
+ip route 10.0.0.0 255.255.255.0 10.0.4.1
+ip route 10.0.1.0 255.255.255.0 10.0.4.1
+ip route 10.0.2.0 255.255.255.0 10.0.4.1
+ip route 10.0.3.0 255.255.255.0 10.0.4.1
+ip route 10.0.6.0 255.255.255.0 10.0.4.1
+
+
+ip route 182.46.0.0 255.255.255.0 10.0.4.1
+ip route 153.69.0.0 255.255.255.0 10.0.4.1
+ip route 200.10.156.0 255.255.255.0 10.0.4.1
+
+ip route 135.82.0.0 255.255.255.0 10.0.5.2
+
+
+R6
+**********************************
+interface Ethernet1/0
+ip address 10.0.5.2 255.255.255.0
+no shutdown
+exit
+
+interface Ethernet1/1
+ip address 135.82.0.1 255.255.255.0
+no shutdown
+exit
+
+
+Static:
+ip route 10.0.0.0 255.255.255.0 10.0.5.1
+ip route 10.0.1.0 255.255.255.0 10.0.5.1
+ip route 10.0.2.0 255.255.255.0 10.0.5.1
+ip route 10.0.3.0 255.255.255.0 10.0.5.1
+ip route 10.0.4.0 255.255.255.0 10.0.5.1
+ip route 10.0.6.0 255.255.255.0 10.0.5.1
+
+ip route 182.46.0.0 255.255.255.0 10.0.5.1
+ip route 153.69.0.0 255.255.255.0 10.0.5.1
+ip route 200.10.156.0 255.255.255.0 10.0.5.1
+
+R7
+**********************************
+interface Ethernet1/0
+ip address 10.0.6.2 255.255.255.0
+no shutdown
+exit
+
+interface Ethernet1/1
+ip address 153.69.0.1 255.255.255.0
+no shutdown
+exit
+
+Static:
+ip route 10.0.0.0 255.255.255.0 10.0.6.1
+ip route 10.0.1.0 255.255.255.0 10.0.6.1
+ip route 10.0.2.0 255.255.255.0 10.0.6.1
+ip route 10.0.3.0 255.255.255.0 10.0.6.1
+ip route 10.0.4.0 255.255.255.0 10.0.6.1
+ip route 10.0.5.0 255.255.255.0 10.0.6.1
+
+
+ip route 182.46.0.0 255.255.255.0 10.0.6.1
+ip route 200.10.156.0 255.255.255.0 10.0.6.1
+ip route 135.82.0.0 255.255.255.0 10.0.6.1
+
+
+
+
+write memory
+
+
+
